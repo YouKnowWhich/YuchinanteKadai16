@@ -75,11 +75,11 @@ class TableViewController: UITableViewController {
             switch segue.identifier ?? "" {
             case "AddSegue":
                 // 追加モードを設定する
-                add.mode = AddItemViewController.Mode.Add
+                add.mode = AddItemViewController.Mode.add
                 break
             case "EditSegue":
                 // 編集モードを設定する
-                add.mode = AddItemViewController.Mode.Edit
+                add.mode = AddItemViewController.Mode.edit
                 if let indexPath = sender as? IndexPath {
                     let item = self.items[indexPath.row]
                     // 編集対象のアイテム名を渡す

@@ -11,24 +11,25 @@ import UIKit
 class AddItemViewController: UIViewController {
 
     // 追加モードと編集モードを定義する列挙体
-    enum Mode {
-        case add, edit
+    enum Mode: Equatable {
+        case add, edit(String)
     }
 
     var mode = Mode.add  // デフォルトは追加モード
-
 
     // アイテム名を入力するテキストフィールド
     @IBOutlet private weak var nameTextField: UITextField!
 
     var name = ""  // 入力されたアイテム名を保持するプロパティ
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // 編集モードの場合はテキストフィールドに既存のアイテム名を表示する
-        if mode == .edit {
+        switch mode {
+        case .add:
+            break
+        case .edit(let name):
             nameTextField.text = name
         }
     }
@@ -36,7 +37,7 @@ class AddItemViewController: UIViewController {
     // セーブボタンが押された時の処理
     @IBAction func pressSaveButton(_ sender: Any) {
         // テキストフィールドの値をnameプロパティに設定
-           name = nameTextField.text ?? ""
+        name = nameTextField.text ?? ""
 
         let identifier = (mode == .add) ? "exitFromAddBySaveSegue" : "exitFromEditBySaveSegue"
         // セグエを実行して遷移する

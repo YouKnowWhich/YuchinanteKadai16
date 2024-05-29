@@ -15,7 +15,7 @@ class TableViewController: UITableViewController {
     private let keyCheck = "Check"
 
     // アクセサリボタンがタップされたセルのインデックスパスを保持するプロパティ
-    var editIndexPath: IndexPath?
+    private var editIndexPath: IndexPath?
 
     // テーブルビューに表示するアイテムの配列
     private var items: [[String: Any]] = []
@@ -29,7 +29,7 @@ class TableViewController: UITableViewController {
             [keyName: "りんご", keyCheck: false],
             [keyName: "みかん", keyCheck: true],
             [keyName: "バナナ", keyCheck: false],
-            [keyName: "パイナップル", keyCheck: true],
+            [keyName: "パイナップル", keyCheck: true]
         ]
     }
 
@@ -75,19 +75,16 @@ class TableViewController: UITableViewController {
             switch segue.identifier ?? "" {
             case "AddSegue":
                 // 追加モードを設定する
-                add.mode = AddItemViewController.Mode.add
-                break
+                add.mode = .add
             case "EditSegue":
                 // 編集モードを設定する
-                add.mode = AddItemViewController.Mode.edit
                 if let indexPath = sender as? IndexPath {
                     let item = self.items[indexPath.row]
                     // 編集対象のアイテム名を渡す
-                    add.name = (item[keyName] as? String) ?? ""
+                    add.mode = .edit((item[keyName] as? String) ?? "")
                 }
-                break
             default:
-                break;
+                break
             }
         }
     }
@@ -122,4 +119,3 @@ class TableViewController: UITableViewController {
         }
     }
 }
-
